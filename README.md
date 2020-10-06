@@ -1,7 +1,7 @@
 # Weather Dashboard
 
-[Deployed Project]()  
-[Github Repo]()
+[Deployed Project](https://puakehaulani.github.io/6-Weather-Dashboard/)  
+[Github Repo](https://github.com/puakehaulani/6-Weather-Dashboard)
 
 ## About the Project
 
@@ -24,10 +24,8 @@ To use the Weather Dashboard, enter a city name in the search box and click the 
 
 Clone the repo
 
-<!--enter ssh key after "clone-->
-
 ```bash
-git clone
+git clone git@github.com:puakehaulani/6-Weather-Dashboard.git
 ```
 
 ## Contributing
