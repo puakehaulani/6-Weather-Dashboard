@@ -12,12 +12,8 @@
 
 <body>
     <div class="container">
-
-        <nav class="navbar navbar-dark bg-dark">
-            <span class="mb-0 mx-auto h1">Weather Dashboard
-            </span>
-        </nav>
-
+        <div class="d-flex bg-dark mb-0 h1" id="title">Weather Dashboard
+        </div>
 
         <div class="row">
 
@@ -31,22 +27,20 @@
                     </div>
                 </div>
                 <!--ul of search history-->
-                <ul>
+                <ul id="city-history">
                 </ul>
             </div>
 
             <!--main area content-->
             <div class="col-md-8">
-                <div class="row">
-                    <!--current weather card-->
-                    <div class="card">
-                        <div class="card-body" id="current-weather">
-                        </div>
-                    </div>
+                <!--current weather -->
+                <div class="row d-flex">
+                    <h3>Current Weather</h3>
                 </div>
+
                 <!--forecast weather row-->
-                <div class="row" id="five-forecast">
-                    <h2>Five Day Forecast</h2>
+                <div class="row d-flex" id="five-forecast">
+                    <h3>Five Day Forecast</h3>
                 </div>
             </div>
 
