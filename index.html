@@ -21,7 +21,8 @@
             <div class="col-md-4">
                 <!--search box-->
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="cityName" placeholder="Search for a City">
+                    <!-- <input type="text" class="form-control" id="cityName" placeholder="Search for a City"> -->
+                    <input type="text" class="form-control" id="cityName" value="Seattle">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="searchBtn">Search</button>
                     </div>
@@ -38,10 +39,14 @@
                     <h3>Current Weather</h3>
                     <div id ="searchedName"></div>
                     <div id ="currentDate"></div>
-                    <div id ="currentIcon"></div>
+                    <img id ="currentIcon">
+                    <label for="currentTemp">Temperature: </label>
                     <div id ="currentTemp"></div>
+                    <label for="currentHumid">Humidity: </label>
                     <div id ="currentHumid"></div>
+                    <label for="currentWind">Wind Speed: </label>
                     <div id ="currentWind"></div>
+                    <label for="currentUV">UV Index: </label>
                     <div id ="currentUV"></div>
                 </div>
 

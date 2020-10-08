@@ -34,9 +34,9 @@ function buildOneCall(latvar, lonvar) {
 function storeCity() {
   let storageVal = $("#cityName").val();
   console.log(storageVal + " <-this is the storage info");
-  var arrayVal = !!localStorage.getItem('city-entered') ? JSON.parse(localStorage.getItem('city-entered')) : [];
-  arrayVal.push(storageVal);
-  localStorage.setItem("city-entered", JSON.stringify(arrayVal));
+  let getCityArr = !!localStorage.getItem('city-entered') ? JSON.parse(localStorage.getItem('city-entered')) : [];
+  getCityArr.push(storageVal);
+  localStorage.setItem("city-entered", JSON.stringify(getCityArr));
   getCity();
 }
 //localstorage get function to display city list, move function above click function
@@ -44,7 +44,7 @@ function storeCity() {
 function getCity() {
   let $cityHistory = $("ul#city-history");
   $cityHistory.empty();
-  let getCityArr = JSON.parse(localStorage.getItem('city-entered'));
+  let getCityArr = !!localStorage.getItem('city-entered') ? JSON.parse(localStorage.getItem('city-entered')) : [];
   console.log(getCityArr);
   for (i = 0; i < getCityArr.length; i++) {
     let cityLi = $("<li>");
@@ -83,7 +83,15 @@ $("#searchBtn").click(function (event) {
       console.log(response);
       let dt = response.current.dt;
       let currentDate = convertEpoch(dt);
-      showCurrent($("#cityName").val(), currentDate);
+      let currentIcon = response.current.weather[0].icon;
+      console.log(currentIcon);
+      let tempInKelvin = response.current.temp;
+      console.log(tempInKelvin);
+      let currentTemp = convertKtoF(tempInKelvin.toString());
+      let currentHumid = response.current.humidity;
+      let currentWind = Math.round(response.current.wind_speed);
+      let currentUV = response.current.uvi;
+      showCurrent($("#cityName").val(), currentDate, currentIcon, currentTemp, currentHumid, currentWind, currentUV);
 
     })
 
@@ -100,20 +108,27 @@ $("#searchBtn").click(function (event) {
 //make it so submit can work on return button as well
 
 // build current weather
-function showCurrent(cityName, currentDate) {
-  console.log($("#cityName"));
+function showCurrent(cityName, currentDate, currentIcon, currentTemp, currentHumid, currentWind, currentUV) {
   $("#searchedName").text(cityName);
   $("#currentDate").text(currentDate);
-  //$("#currentIcon")
-  $("#currentTemp").text(currentTemp);
-  // $("#currentHumid").text(currentHumid);
-  // $("#currentWind").text(currentWind);
-  // $("#currentUV").text(currentUV);
+  $("#currentIcon").attr("src", "http://openweathermap.org/img/wn/" + currentIcon + "@2x.png")
+  $("#currentTemp").text(currentTemp + "\xB0F");
+  $("#currentHumid").text(currentHumid + "%");
+  $("#currentWind").text(currentWind + " MPH");
+  $("#currentUV").text(currentUV);
+}
 
+function showForecast() {
 
 }
 // convert dt in response to date
 function convertEpoch(dt) {
   var d = new Date(dt * 1000);
   return d.toLocaleString();
+}
+
+//convert K to F
+function convertKtoF(tempInKelvin) {
+  // (360K − 273.15) × 9/5 + 32 = 188.33°F
+  return Math.round(((tempInKelvin - 273.15) * 9) / 5 + 32);
 }
