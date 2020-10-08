@@ -26,12 +26,40 @@ function buildOneCall(latvar, lonvar) {
   return oneCall + $.param(oneCallParams);
 }
 
+//-----functions-----
+
+//localstorage set function for  city list, when clicked display current weather & forecast, move function above click function
+// working DONT MESS WITH IT
+// make this a set so no dupes
+function storeCity() {
+  let storageVal = $("#cityName").val();
+  console.log(storageVal + " <-this is the storage info");
+  var arrayVal = !!localStorage.getItem('city-entered') ? JSON.parse(localStorage.getItem('city-entered')) : [];
+  arrayVal.push(storageVal);
+  localStorage.setItem("city-entered", JSON.stringify(arrayVal));
+  getCity();
+}
+//localstorage get function to display city list, move function above click function
+//working DONT MESS WITH IT
+function getCity() {
+  let $cityHistory = $("ul#city-history");
+  $cityHistory.empty();
+  let getCityArr = JSON.parse(localStorage.getItem('city-entered'));
+  console.log(getCityArr);
+  for (i = 0; i < getCityArr.length; i++) {
+    let cityLi = $("<li>");
+    cityLi.text(getCityArr[i]);
+    $cityHistory.prepend(cityLi);
+  }
+}
+getCity();
+
 // ----click function----
 $("#searchBtn").click(function (event) {
   // prevent browser defaults on click
   event.preventDefault();
 
-  // ------add city name to city list using local storage, make link clickable------
+  storeCity();
 
   let getCoord = buildGetCoord();
   // current weather api call to get lat and lon coordinates for user entered city
@@ -53,16 +81,39 @@ $("#searchBtn").click(function (event) {
       method: "GET"
     }).then(function (response) {
       console.log(response);
+      let dt = response.current.dt;
+      let currentDate = convertEpoch(dt);
+      showCurrent($("#cityName").val(), currentDate);
+
     })
 
   });
 })
 
-//localstorage set function for  city list, when clicked display current weather & forecast, move function above click function
-//localstorage get function to display city list, move function above click function
+
+
 //localstorage last search display on refresh, move function above click function
 
 // ----extras if finished early----
 //css styling
 //make input box clear when submitting
 //make it so submit can work on return button as well
+
+// build current weather
+function showCurrent(cityName, currentDate) {
+  console.log($("#cityName"));
+  $("#searchedName").text(cityName);
+  $("#currentDate").text(currentDate);
+  //$("#currentIcon")
+  $("#currentTemp").text(currentTemp);
+  // $("#currentHumid").text(currentHumid);
+  // $("#currentWind").text(currentWind);
+  // $("#currentUV").text(currentUV);
+
+
+}
+// convert dt in response to date
+function convertEpoch(dt) {
+  var d = new Date(dt * 1000);
+  return d.toLocaleString();
+}
