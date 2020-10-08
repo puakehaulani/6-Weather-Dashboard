@@ -1,6 +1,7 @@
 // ----global variables----
 
 // ----build URLs----
+
 // build url to call that enters user's city name and returns response with lat and lon coordinates
 // https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
 function buildGetCoord() {
@@ -28,7 +29,7 @@ function buildOneCall(latvar, lonvar) {
 
 //-----functions-----
 
-//localstorage set function for  city list, when clicked display current weather & forecast, move function above click function
+//localstorage set function for city list, when clicked display current weather & forecast
 // working DONT MESS WITH IT
 // make this a set so no dupes
 function storeCity() {
@@ -39,7 +40,7 @@ function storeCity() {
   localStorage.setItem("city-entered", JSON.stringify(getCityArr));
   getCity();
 }
-//localstorage get function to display city list, move function above click function
+//localstorage get function to display city list
 //working DONT MESS WITH IT
 function getCity() {
   let $cityHistory = $("ul#city-history");
@@ -53,6 +54,64 @@ function getCity() {
   }
 }
 getCity();
+
+// convert dt in response to date
+function convertEpoch(dt) {
+  var d = new Date(dt * 1000);
+  return d.toLocaleDateString();
+}
+
+//convert K to F
+function convertKtoF(tempInKelvin) {
+  // (360K − 273.15) × 9/5 + 32 = 188.33°F
+  return Math.round(((tempInKelvin - 273.15) * 9) / 5 + 32);
+}
+
+// build current weather
+function showCurrent(cityName, currentDate, currentIcon, currentTemp, currentHumid, currentWind, currentUV) {
+  $("#searchedName").text(cityName);
+  $("#currentDate").text(currentDate);
+  $("#currentIcon").attr("src", "http://openweathermap.org/img/wn/" + currentIcon + "@2x.png")
+  $("#currentTemp").text(currentTemp + "\xB0F");
+  $("#currentHumid").text(currentHumid + "%");
+  $("#currentWind").text(currentWind + " MPH");
+  $("#currentUV").text(currentUV);
+}
+
+// build forecast weather
+function showForecast(response) {
+  let $fiveForecast = $("#fiveForecast")
+  for (i = 0; i < 5; i++) {
+    let card = $("<div>");
+    card.attr("class", "card");
+    $fiveForecast.append(card);
+    let cardBody = $("<div>");
+    cardBody.attr("class", "card-body")
+    card.append(cardBody);
+
+    console.log(response.daily[i].temp.day);
+    let forecastDate = convertEpoch(response.daily[i].dt);
+    let h5 = $("<h5>");
+    h5.text(forecastDate);
+    cardBody.append(h5);
+
+    console.log(response.daily[i].weather[0].icon);
+    let forecastIcon = response.daily[i].weather[0].icon;
+    let imgIcon = $("<img>");
+    imgIcon.attr("src", "http://openweathermap.org/img/wn/" + forecastIcon + "@2x.png");
+    cardBody.append(imgIcon);
+
+    let forecastTemp = convertKtoF(response.daily[i].temp.day);
+    let tempDiv = $("<div>");
+    tempDiv.text(forecastTemp + "\xB0F");
+    cardBody.append(tempDiv);
+
+    let forecastHumid = response.daily[i].humidity;
+    let humidDiv = $("<div>");
+    humidDiv.text(forecastHumid + "%");
+    cardBody.append(humidDiv);
+  }
+}
 
 // ----click function----
 $("#searchBtn").click(function (event) {
@@ -92,43 +151,17 @@ $("#searchBtn").click(function (event) {
       let currentWind = Math.round(response.current.wind_speed);
       let currentUV = response.current.uvi;
       showCurrent($("#cityName").val(), currentDate, currentIcon, currentTemp, currentHumid, currentWind, currentUV);
-
+      showForecast(response);
     })
 
   });
 })
 
 
-
 //localstorage last search display on refresh, move function above click function
-
-// ----extras if finished early----
+//bootstrap finishing
 //css styling
+//make city array a set so no dupes
+// ----extras if finished early----
 //make input box clear when submitting
 //make it so submit can work on return button as well
-
-// build current weather
-function showCurrent(cityName, currentDate, currentIcon, currentTemp, currentHumid, currentWind, currentUV) {
-  $("#searchedName").text(cityName);
-  $("#currentDate").text(currentDate);
-  $("#currentIcon").attr("src", "http://openweathermap.org/img/wn/" + currentIcon + "@2x.png")
-  $("#currentTemp").text(currentTemp + "\xB0F");
-  $("#currentHumid").text(currentHumid + "%");
-  $("#currentWind").text(currentWind + " MPH");
-  $("#currentUV").text(currentUV);
-}
-
-function showForecast() {
-
-}
-// convert dt in response to date
-function convertEpoch(dt) {
-  var d = new Date(dt * 1000);
-  return d.toLocaleString();
-}
-
-//convert K to F
-function convertKtoF(tempInKelvin) {
-  // (360K − 273.15) × 9/5 + 32 = 188.33°F
-  return Math.round(((tempInKelvin - 273.15) * 9) / 5 + 32);
-}

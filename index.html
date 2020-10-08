@@ -21,8 +21,7 @@
             <div class="col-md-4">
                 <!--search box-->
                 <div class="input-group mb-3">
-                    <!-- <input type="text" class="form-control" id="cityName" placeholder="Search for a City"> -->
-                    <input type="text" class="form-control" id="cityName" value="Seattle">
+                    <input type="text" class="form-control" id="cityName" placeholder="Search for a City">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="searchBtn">Search</button>
                     </div>
@@ -35,24 +34,30 @@
             <!--main area content-->
             <div class="col-md-8">
                 <!--current weather -->
-                <div class="row d-flex">
-                    <h3>Current Weather</h3>
-                    <div id ="searchedName"></div>
-                    <div id ="currentDate"></div>
-                    <img id ="currentIcon">
-                    <label for="currentTemp">Temperature: </label>
-                    <div id ="currentTemp"></div>
-                    <label for="currentHumid">Humidity: </label>
-                    <div id ="currentHumid"></div>
-                    <label for="currentWind">Wind Speed: </label>
-                    <div id ="currentWind"></div>
-                    <label for="currentUV">UV Index: </label>
-                    <div id ="currentUV"></div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body"> 
+                                <h2 id ="searchedName"></h2>
+                                <img id ="currentIcon"><br>
+                                <div id ="currentDate"></div>
+                                <label for="currentTemp">Temperature: </label>
+                                <div id ="currentTemp"></div>
+                                <label for="currentHumid">Humidity: </label>
+                                <div id ="currentHumid"></div>
+                                <label for="currentWind">Wind Speed: </label>
+                                <div id ="currentWind"></div>
+                                <label for="currentUV">UV Index: </label>
+                                <div id ="currentUV"></div>
+                            </div>  
+                        </div>
+                    </div>
                 </div>
-
                 <!--forecast weather row-->
-                <div class="row d-flex" id="five-forecast">
-                    <h3>Five Day Forecast</h3>
+                <div class="row">
+                    <h3>Five Day Forecast</h3><br>
+                    <div class="row" id="fiveForecast">
+                    </div>
                 </div>
             </div>
 
