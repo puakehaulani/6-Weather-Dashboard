@@ -143,6 +143,14 @@ function showForecast(response) {
 // //on load
 // $( window ).on( "load", function() { ... })
 
+// search with enter button
+$(document).ready(function() {
+  $("#cityName").keyup(function(event) {
+    if (event.which === 13) {
+      $("#searchBtn").click();
+    }
+  })
+});
 
 // ----click function----
 $("#searchBtn").click(function (event) {
@@ -194,7 +202,7 @@ $("#searchBtn").click(function (event) {
       );
          //clear input text
       $("#cityName").val("");
-      
+
       showForecast(response);
     });
   });
@@ -208,6 +216,6 @@ $("#searchBtn").click(function (event) {
 // catch method look it up
 
 // ----extras if finished early----
-//make input box clear when submitting
-//make it so submit can work on return button as well
+
+
 //fix potential bug of misspelled cities not being searched but being added to list
