@@ -208,7 +208,7 @@ $("#searchBtn").click(function (event) {
       showForecast(response);
 
       // set UV color, should be in a function but wasnt able to make work?
-      $("#currentUV").addClass("");
+      $("#currentUV").removeClass();
       if (currentUV <= 2) {
         $("#currentUV").addClass('low');
         console.log("it is low" + currentUV);
@@ -233,7 +233,6 @@ $("#searchBtn").click(function (event) {
 
 //localstorage last search display on refresh, move function above click function
 //make city array a set so no dupes, look up includes method per dan
-//make uv display with color background
 // catch method look it up
 
 // ----extras if finished early----
