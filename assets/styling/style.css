@@ -18,3 +18,28 @@
 label{
     font-weight: bold;
 }
+
+.low{
+background-color: lightgreen;
+padding: 5px;
+}
+.med{
+    background-color: yellow;
+    padding: 5px;
+   
+}
+.hi{
+    background-color:lightsalmon;
+    padding: 5px;
+    
+}
+.veryhi{
+    background-color: rgb(236, 101, 91);
+    padding: 5px;
+    
+}
+.exhi{
+    background-color: rgb(174, 128, 184);
+    padding: 5px;
+    
+}

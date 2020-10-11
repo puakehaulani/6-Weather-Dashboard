@@ -105,7 +105,7 @@ function showCurrent(
 // build forecast weather
 function showForecast(response) {
   let $fiveForecast = $("#fiveForecast");
-  for (i = 0; i < 5; i++) {
+  for (i = 1; i < 5; i++) {
     let card = $("<div>");
     card.attr("class", "card");
     $fiveForecast.append(card);
@@ -135,7 +135,7 @@ function showForecast(response) {
 
     let forecastHumid = response.daily[i].humidity;
     let humidDiv = $("<div>");
-    humidDiv.text(forecastHumid + "%");
+    humidDiv.text("Humidity: " + forecastHumid + "%");
     cardBody.append(humidDiv);
   }
 }
@@ -190,7 +190,8 @@ $("#searchBtn").click(function (event) {
       let currentTemp = convertKtoF(tempInKelvin.toString());
       let currentHumid = response.current.humidity;
       let currentWind = Math.round(response.current.wind_speed);
-      let currentUV = response.current.uvi;
+      let currentUV = Math.round(response.current.uvi);
+      
       showCurrent(
         toTitleCase($("#cityName").val()),
         currentDate,
@@ -199,11 +200,31 @@ $("#searchBtn").click(function (event) {
         currentHumid,
         currentWind,
         currentUV
+      
       );
          //clear input text
       $("#cityName").val("");
 
       showForecast(response);
+
+      // set UV color, should be in a function but wasnt able to make work?
+      $("#currentUV").addClass("");
+      if (currentUV <= 2) {
+        $("#currentUV").addClass('low');
+        console.log("it is low" + currentUV);
+      } else if (currentUV < 5) {
+        $("#currentUV").addClass('med');
+        console.log("it is med" + currentUV);
+      } else if (currentUV < 7) {
+        $("#currentUV").addClass('hi');
+        console.log("it is hi" + currentUV);
+      } else if (currentUV < 10) {
+        $("#currentUV").addClass('veryhi');
+        console.log("it is veryhi" + currentUV);
+      } else {
+        $("#currentUV").addClass('exhi');
+        console.log("it is exhi" + currentUV);
+      }
     });
   });
 });
@@ -216,6 +237,6 @@ $("#searchBtn").click(function (event) {
 // catch method look it up
 
 // ----extras if finished early----
-
-
 //fix potential bug of misspelled cities not being searched but being added to list
+
+
