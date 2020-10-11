@@ -180,7 +180,7 @@ $("#searchBtn").click(function (event) {
       let currentWind = Math.round(response.current.wind_speed);
       let currentUV = response.current.uvi;
       showCurrent(
-        $("#cityName").val(),
+        toTitleCase($("#cityName").val()),
         currentDate,
         currentIcon,
         currentTemp,
@@ -196,7 +196,7 @@ $("#searchBtn").click(function (event) {
 //localstorage last search display on refresh, move function above click function
 
 //make city array a set so no dupes, look up includes method per dan
-//case styling for city names
+
 //make uv display with color background
 // catch method look it up
 
