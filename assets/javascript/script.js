@@ -29,11 +29,21 @@ function buildOneCall(latvar, lonvar) {
 
 //-----functions-----
 
+// change user input to title case
+function toTitleCase(str) {
+  return str.replace(
+    /\w\S*/g,
+    function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }
+  );
+}
+
 //localstorage set function for city list, when clicked display current weather & forecast
 // working DONT MESS WITH IT
 // make this a set so no dupes
 function storeCity() {
-  let storageVal = $("#cityName").val();
+  let storageVal = toTitleCase($("#cityName").val());
   console.log(storageVal + " <-this is the storage info");
   let getCityArr = !!localStorage.getItem("city-entered") ?
     JSON.parse(localStorage.getItem("city-entered")) : [];
@@ -187,7 +197,7 @@ $("#searchBtn").click(function (event) {
 
 //make city array a set so no dupes, look up includes method per dan
 //case styling for city names
-
+//make uv display with color background
 // catch method look it up
 
 // ----extras if finished early----
