@@ -140,12 +140,16 @@ function showForecast(response) {
   }
 }
 
+// //on load
+// $( window ).on( "load", function() { ... })
+
+
 // ----click function----
 $("#searchBtn").click(function (event) {
   // prevent browser defaults on click
   event.preventDefault();
   //clears old forecast
-  $("#fiveForecast").empty(),
+  $("#fiveForecast").empty(), 
   //runs local storage function
   storeCity();
 
@@ -188,15 +192,18 @@ $("#searchBtn").click(function (event) {
         currentWind,
         currentUV
       );
+         //clear input text
+      $("#cityName").val("");
+      
       showForecast(response);
     });
   });
 });
 
+
+
 //localstorage last search display on refresh, move function above click function
-
 //make city array a set so no dupes, look up includes method per dan
-
 //make uv display with color background
 // catch method look it up
 
