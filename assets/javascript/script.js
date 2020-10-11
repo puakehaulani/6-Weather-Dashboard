@@ -35,9 +35,8 @@ function buildOneCall(latvar, lonvar) {
 function storeCity() {
   let storageVal = $("#cityName").val();
   console.log(storageVal + " <-this is the storage info");
-  let getCityArr = !!localStorage.getItem("city-entered")
-    ? JSON.parse(localStorage.getItem("city-entered"))
-    : [];
+  let getCityArr = !!localStorage.getItem("city-entered") ?
+    JSON.parse(localStorage.getItem("city-entered")) : [];
   //includes method, if statement or ^^this thing
   getCityArr.push(storageVal);
   localStorage.setItem("city-entered", JSON.stringify(getCityArr));
@@ -48,9 +47,8 @@ function storeCity() {
 function getCity() {
   let $cityHistory = $("ul#city-history");
   $cityHistory.empty();
-  let getCityArr = !!localStorage.getItem("city-entered")
-    ? JSON.parse(localStorage.getItem("city-entered"))
-    : [];
+  let getCityArr = !!localStorage.getItem("city-entered") ?
+    JSON.parse(localStorage.getItem("city-entered")) : [];
   console.log(getCityArr);
   for (i = 0; i < getCityArr.length; i++) {
     let cityLi = $("<li>");
@@ -136,7 +134,9 @@ function showForecast(response) {
 $("#searchBtn").click(function (event) {
   // prevent browser defaults on click
   event.preventDefault();
-
+  //clears old forecast
+  $("#fiveForecast").empty(),
+  //runs local storage function
   storeCity();
 
   let getCoord = buildGetCoord();
@@ -184,11 +184,10 @@ $("#searchBtn").click(function (event) {
 });
 
 //localstorage last search display on refresh, move function above click function
-//bootstrap finishing see notes in html in main area on how to do so
-//css styling, work with tutor on why its not styling
+
 //make city array a set so no dupes, look up includes method per dan
 //case styling for city names
-//delete old forecast when clicking new one
+
 // catch method look it up
 
 // ----extras if finished early----
