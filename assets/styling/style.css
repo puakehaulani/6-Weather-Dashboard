@@ -1,3 +1,20 @@
 #city-history {
     list-style-type: none;
 }
+
+#searchedName,
+#currentIcon,
+#currentDate,
+#currentHumid,
+#currentWind,
+#currentUV {
+    display: inline;
+}
+
+#currentDate{
+    font-size: smaller;
+}
+
+label{
+    font-weight: bold;
+}
