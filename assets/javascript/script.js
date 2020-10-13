@@ -7,7 +7,7 @@
 function buildGetCoord() {
   let getCoord = "https://api.openweathermap.org/data/2.5/weather?";
   let coordParams = {
-    q: $("#cityName").val(),
+    q: searchedCity,
     appid: "d3c8c525fef446aa8fb30692c753cdf6",
   };
   console.log(getCoord + $.param(coordParams));
@@ -73,6 +73,7 @@ function getCity() {
   //make li clickable
   $("li").on("click", function(){
     console.log($(this).text());
+    searchedCity = ($(this).text());
     // *** NEED TO: *** take console log info and run it through same call as click event
     //need to figure out how to run function with data that isnt in input box
     searchEvent();
@@ -93,7 +94,7 @@ function convertKtoF(tempInKelvin) {
 
 // build current weather
 function showCurrent(
-  cityName,
+  searchedCity,
   currentDate,
   currentIcon,
   currentTemp,
@@ -101,7 +102,7 @@ function showCurrent(
   currentWind,
   currentUV
 ) {
-  $("#searchedName").text(cityName);
+  $("#searchedName").text(searchedCity);
   $("#currentDate").text(currentDate);
   $("#currentIcon").attr(
     "src",
@@ -165,8 +166,7 @@ $(document).ready(function() {
 
 // ----worker search function----
 function searchEvent (){
-  // prevent browser defaults on click
-  event.preventDefault();
+  
   //clears old forecast
   $("#fiveForecast").empty(), 
   //runs local storage function
@@ -204,7 +204,7 @@ function searchEvent (){
       let currentUV = Math.round(response.current.uvi);
       
       showCurrent(
-        toTitleCase($("#cityName").val()),
+        toTitleCase(searchedCity),
         currentDate,
         currentIcon,
         currentTemp,
@@ -243,13 +243,15 @@ function searchEvent (){
 // ---- CALL FUNCTIONS ----
 getCity();
 $("#searchBtn").click(function (event) {
+  // prevent browser defaults on click
+  event.preventDefault();
+  searchedCity= $("#cityName").val();
   searchEvent();})
 
 
 //localstorage last search display on refresh, move function above click function
-//make city array a set so no dupes, look up includes method per dan
 //make searched list clickable -- make buttons with attr
-      //need to figure out how to run function with data that isnt in input box
+      //need to figure out how to run function with data that isnt in input box but in local storage instead
 
 // ----extras if finished early----
 //fix potential bug of misspelled cities not being searched but being added to list
