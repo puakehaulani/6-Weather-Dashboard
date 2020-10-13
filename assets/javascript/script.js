@@ -63,10 +63,17 @@ function getCity() {
   for (i = 0; i < getCityArr.length; i++) {
     let cityLi = $("<li>");
     cityLi.text(getCityArr[i]);
+    cityLi.attr("");  
     $cityHistory.prepend(cityLi);
   }
+  //make li clickable
+  $("li").on("click", function(){
+    console.log($(this).text());
+    // *** NEED TO: *** take console log info and run it through same call as click event
+    //need to figure out how to run function with data that isnt in input box
+    searchEvent();
+    });
 }
-getCity();
 
 // convert dt in response to date
 function convertEpoch(dt) {
@@ -105,7 +112,7 @@ function showCurrent(
 // build forecast weather
 function showForecast(response) {
   let $fiveForecast = $("#fiveForecast");
-  for (i = 1; i < 5; i++) {
+  for (i = 1; i < 6; i++) {
     let card = $("<div>");
     card.attr("class", "card");
     $fiveForecast.append(card);
@@ -152,8 +159,8 @@ $(document).ready(function() {
   })
 });
 
-// ----click function----
-$("#searchBtn").click(function (event) {
+// ----worker search function----
+function searchEvent (){
   // prevent browser defaults on click
   event.preventDefault();
   //clears old forecast
@@ -227,15 +234,19 @@ $("#searchBtn").click(function (event) {
       }
     });
   });
-});
+}
 
+// ---- CALL FUNCTIONS ----
+getCity();
+$("#searchBtn").click(function (event) {
+  searchEvent();})
 
 
 //localstorage last search display on refresh, move function above click function
 //make city array a set so no dupes, look up includes method per dan
-// catch method look it up
+//make searched list clickable -- make buttons with attr
+      //need to figure out how to run function with data that isnt in input box
 
 // ----extras if finished early----
 //fix potential bug of misspelled cities not being searched but being added to list
-
-
+// catch method look it up
