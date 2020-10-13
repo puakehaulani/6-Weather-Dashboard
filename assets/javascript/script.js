@@ -48,9 +48,13 @@ function storeCity() {
   let getCityArr = !!localStorage.getItem("city-entered") ?
     JSON.parse(localStorage.getItem("city-entered")) : [];
   //includes method, if statement or ^^this thing
+  let n = getCityArr.includes(storageVal);
+  console.log(n + "THIS IS THE BOOLEAN");
+  if (n == false){
   getCityArr.push(storageVal);
   localStorage.setItem("city-entered", JSON.stringify(getCityArr));
   getCity();
+  }
 }
 //localstorage get function to display city list
 //working DONT MESS WITH IT
