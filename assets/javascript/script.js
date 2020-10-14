@@ -121,7 +121,7 @@ function showForecast(response) {
     card.attr("class", "card");
     $fiveForecast.append(card);
     let cardBody = $("<div>");
-    cardBody.attr("class", "card-body");
+    cardBody.attr("class", "card-body forecastBody",);
     card.append(cardBody);
 
     console.log(response.daily[i].temp.day);
