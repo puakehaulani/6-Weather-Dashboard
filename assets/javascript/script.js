@@ -1,5 +1,5 @@
 // ----global variables----
-
+let searchedCity = "";
 // ----build URLs----
 
 // build url to call that enters user's city name and returns response with lat and lon coordinates
@@ -74,8 +74,7 @@ function getCity() {
   $("li").on("click", function(){
     console.log($(this).text());
     searchedCity = ($(this).text());
-    // *** NEED TO: *** take console log info and run it through same call as click event
-    //need to figure out how to run function with data that isnt in input box
+    
     searchEvent();
     });
 }
@@ -151,9 +150,6 @@ function showForecast(response) {
     cardBody.append(humidDiv);
   }
 }
-
-// //on load
-// $( window ).on( "load", function() { ... })
 
 // search with enter button
 $(document).ready(function() {
@@ -241,6 +237,12 @@ function searchEvent (){
 }
 
 // ---- CALL FUNCTIONS ----
+$( window ).ready(function() {
+ searchedCity = JSON.parse(localStorage.getItem("city-entered"))[0];
+ 
+searchEvent();
+});
+
 getCity();
 $("#searchBtn").click(function (event) {
   // prevent browser defaults on click
@@ -249,10 +251,7 @@ $("#searchBtn").click(function (event) {
   searchEvent();})
 
 
-//localstorage last search display on refresh, move function above click function
-//make searched list clickable -- make buttons with attr
-      //need to figure out how to run function with data that isnt in input box but in local storage instead
-
+// ~~To Do~~
+// localstorage last search display on refresh, move function above click function
 // ----extras if finished early----
 //fix potential bug of misspelled cities not being searched but being added to list
-// catch method look it up
